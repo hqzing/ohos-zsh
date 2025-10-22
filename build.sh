@@ -54,7 +54,7 @@ curl -L -O https://sourceforge.net/projects/zsh/files/zsh/5.9/zsh-5.9.tar.xz
 tar -xf zsh-5.9.tar.xz
 cd zsh-5.9
 ./configure \
-    --host=aarch64-linux \
+    --host=aarch64-linux-musl \
     --prefix=/opt/zsh-5.9-ohos-arm64 \
     --disable-dynamic \
     --with-ncurses=/opt/ncurses-6.5-ohos-arm64 \
