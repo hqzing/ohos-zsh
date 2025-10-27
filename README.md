@@ -1,20 +1,22 @@
 # ohos-zsh
-This project will build Zsh for the OpenHarmony platform and release prebuilt packages.
+本项目为 OpenHarmony 平台编译了 zsh，并发布预构建包。
 
-This is a statically-linked Zsh. No runtime dependencies, no need to install terminfo—just copy the binary and use it.
+这个 zsh 静态链接了 libc 以外的库，并集成了 terminfo 数据库，因此单独一个 zsh 二进制可执行文件就能运行。
 
-## Get prebuilt packages
-Go to the [release page](https://github.com/Harmonybrew/ohos-zsh/releases).
+## 获取预构建包
+前往 [release 页面](https://github.com/Harmonybrew/ohos-zsh/releases) 获取。
 
-## Build from source
-Run the build.sh script on a Linux x64 server to cross-compile Zsh for OpenHarmony (e.g., on Ubuntu 24.04 x64).
+## 从源码构建
+用一台 Linux x64 服务器来运行项目里的 build.sh，即可交叉编译出 OpenHarmony 版本的 zsh。
+
+这里以 Ubuntu 24.04 x64 作为示例：
 ```sh
 sudo apt update && sudo apt install -y build-essential unzip jq
 ./build.sh
 ```
 
-## Notice
-If this Zsh does not work properly on your device, try setting the TERM environment variable before starting it.
+## 注意事项
+如果这个 zsh 在你的设备上不能正常运行，可以尝试先设置 TERM 这个环境变量，再启动它。
 
 ```sh
 export TERM=xterm
