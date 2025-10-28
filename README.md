@@ -1,7 +1,7 @@
 # ohos-zsh
 本项目为 OpenHarmony 平台编译了 zsh，并发布预构建包。
 
-这个 zsh 静态链接了 libc 以外的库，并集成了 terminfo 数据库，因此单独一个 zsh 二进制可执行文件就能运行。
+这个 zsh 静态链接了 libc 以外的库，并集成了 terminfo 数据库。单独一个 zsh 二进制可执行文件就能运行。
 
 ## 获取预构建包
 前往 [release 页面](https://github.com/Harmonybrew/ohos-zsh/releases) 获取。
