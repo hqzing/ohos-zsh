@@ -25,7 +25,7 @@ hdc shell
 
 cd /data
 tar -zxf zsh-5.9-ohos-arm64.tar.gz
-export PATH=/data/zsh-5.9-ohos-arm64/bin
+export PATH=$PATH:/data/zsh-5.9-ohos-arm64/bin
 
 # 现在你可以使用 zsh 命令了
 ```
@@ -42,7 +42,7 @@ docker exec -it ohos sh
 cd ~
 curl -L -O https://github.com/Harmonybrew/ohos-zsh/releases/download/5.9/zsh-5.9-ohos-arm64.tar.gz
 tar -zxf zsh-5.9-ohos-arm64.tar.gz -C /opt
-export PATH=/opt/zsh-5.9-ohos-arm64/bin
+export PATH=$PATH:/opt/zsh-5.9-ohos-arm64/bin
 
 # 现在你可以使用 zsh 命令了
 ```
