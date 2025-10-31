@@ -34,7 +34,7 @@ export CFLAGS="-fPIC -D__MUSL__=1"
 export CXXFLAGS="-fPIC -D__MUSL__=1"
 
 # Build ncurses
-wget https://mirrors.ustc.edu.cn/gnu/ncurses/ncurses-6.5.tar.gz
+curl -L -O https://mirrors.ustc.edu.cn/gnu/ncurses/ncurses-6.5.tar.gz
 tar -zxf ncurses-6.5.tar.gz
 cd ncurses-6.5
 ./configure \
