@@ -62,7 +62,7 @@ export PATH=/opt/zsh-5.9-ohos-arm64/bin
 
 ```sh
 export TERM=xterm
-./zsh-5.9-ohos-arm64/bin/zsh
+zsh
 ```
 
 这个 zsh 内置了一些常用的 terminfo：xterm,xterm-256color,xterm-color,screen,screen-256color,tmux,tmux-256color,linux,vt100,vt102,ansi
