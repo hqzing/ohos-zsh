@@ -65,9 +65,9 @@ export TERM=xterm
 ./zsh-5.9-ohos-arm64/bin/zsh
 ```
 
-这个 zsh 内置了这些 terminfo：xterm,xterm-256color,xterm-color,screen,screen-256color,tmux,tmux-256color,linux,vt100,vt102,ansi
+这个 zsh 内置了一些常用的 terminfo：xterm,xterm-256color,xterm-color,screen,screen-256color,tmux,tmux-256color,linux,vt100,vt102,ansi
 
-因此，建议结合你自己所使用的终端环境情况，优先从这个列表里面选一个适合你的值作为你的 TERM 环境变量值。
+建议结合你自己所使用的终端环境情况，优先从这个列表里面选一个适合你的值作为你的 TERM 环境变量值。
 
 如果这里的值也不能满足（极小概率，只有一些非常深度的使用场景可能遇到），你需要自己弄一套 terminfo 数据库到设备上，把 TERMINFO 环境变量值设置成你自己的 terminfo 数据库目录，再设一个自己想要的 TERM 环境变量值。
 
