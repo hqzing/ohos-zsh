@@ -1,15 +1,8 @@
 #!/bin/sh
 set -e
 
-# Setup ohos-sdk
-query_component() {
-  component=$1
-  curl -fsSL 'https://ci.openharmony.cn/api/daily_build/build/list/component' \
-    -H 'Accept: application/json, text/plain, */*' \
-    -H 'Content-Type: application/json' \
-    --data-raw '{"projectName":"openharmony","branch":"master","pageNum":1,"pageSize":10,"deviceLevel":"","component":"'${component}'","type":1,"startTime":"2025080100000000","endTime":"20990101235959","sortType":"","sortField":"","hardwareBoard":"","buildStatus":"success","buildFailReason":"","withDomain":1}'
-}
-sdk_download_url=$(query_component "ohos-sdk-public" | jq -r ".data.list.dataList[0].obsPath")
+# 准备 ohos-sdk
+sdk_download_url="https://cidownload.openharmony.cn/version/Daily_Version/OpenHarmony_6.0.0.56/20251027_150702/version-Daily_Version-OpenHarmony_6.0.0.56-20251027_150702-ohos-sdk-public.tar.gz"
 curl $sdk_download_url -o ohos-sdk-public.tar.gz
 mkdir -p /opt/ohos-sdk
 tar -zxf ohos-sdk-public.tar.gz -C /opt/ohos-sdk
@@ -18,7 +11,7 @@ unzip -q native-*.zip
 unzip -q toolchains-*.zip
 cd - >/dev/null
 
-# setup env
+# 设置交叉编译所需的环境变量
 export OHOS_SDK=/opt/ohos-sdk/linux
 export AS=${OHOS_SDK}/native/llvm/bin/llvm-as
 export CC="${OHOS_SDK}/native/llvm/bin/clang --target=aarch64-linux-ohos"
@@ -33,7 +26,7 @@ export AR=${OHOS_SDK}/native/llvm/bin/llvm-ar
 export CFLAGS="-fPIC -D__MUSL__=1"
 export CXXFLAGS="-fPIC -D__MUSL__=1"
 
-# Build ncurses
+# 编译 ncurses
 curl -L -O https://mirrors.ustc.edu.cn/gnu/ncurses/ncurses-6.5.tar.gz
 tar -zxf ncurses-6.5.tar.gz
 cd ncurses-6.5
@@ -49,7 +42,7 @@ make -j$(nproc) hashsize=1024
 make install
 cd ..
 
-# Build zsh
+# 编译 zsh
 curl -L -O https://sourceforge.net/projects/zsh/files/zsh/5.9/zsh-5.9.tar.xz
 tar -xf zsh-5.9.tar.xz
 cd zsh-5.9
@@ -62,11 +55,31 @@ cd zsh-5.9
     LDFLAGS="-L/opt/ncurses-6.5-ohos-arm64/lib"
 make -j$(nproc)
 make install
-cp LICENCE /opt/zsh-5.9-ohos-arm64
 cd ..
 
-# Codesign
+# 履行开源义务，把使用的开源软件的 license 全部聚合起来放到制品中
+zsh_txt=$(cat zsh-5.9/LICENCE; echo)
+ncurses_txt=$(cat ncurses-6.5/COPYING; echo)
+printf '%s' "$(cat <<EOF
+This document describes the licenses of all software distributed with the
+bundled application.
+==========================================================================
+
+
+zsh
+=========
+$zsh_txt
+
+ncurses
+=========
+$ncurses_txt
+
+EOF
+)" > /opt/zsh-5.9-ohos-arm64/licenses.txt
+
+# 代码签名
 /opt/ohos-sdk/linux/toolchains/lib/binary-sign-tool sign -inFile /opt/zsh-5.9-ohos-arm64/bin/zsh -outFile /opt/zsh-5.9-ohos-arm64/bin/zsh -selfSign 1
 
+# 打包最终产物
 cd /opt
 tar -zcf zsh-5.9-ohos-arm64.tar.gz zsh-5.9-ohos-arm64
