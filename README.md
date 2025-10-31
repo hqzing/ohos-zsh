@@ -11,7 +11,7 @@
 
 这里以 Ubuntu 24.04 x64 作为示例：
 ```sh
-sudo apt update && sudo apt install -y build-essential unzip jq
+sudo apt update && sudo apt install -y build-essential unzip
 ./build.sh
 ```
 
