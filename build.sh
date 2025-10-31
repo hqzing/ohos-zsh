@@ -44,7 +44,7 @@ cd ncurses-6.5
     --without-debug \
     --with-strip-program=$STRIP \
     --enable-termcap \
-    --with-fallbacks=linux,xterm,xterm-256color,vt100
+    --with-fallbacks=xterm,xterm-256color,xterm-color,screen,screen-256color,tmux,tmux-256color,linux,vt100,vt102,ansi
 make -j$(nproc) hashsize=1024
 make install
 cd ..
